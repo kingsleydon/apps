@@ -6,11 +6,11 @@ import type { RuntimeVersion } from '@polkadot/types/interfaces';
 import React from 'react';
 import styled from 'styled-components';
 
-import { ChainImg, Icon } from '@polkadot/react-components';
-import { useApi, useCall, useIpfs, useToggle } from '@polkadot/react-hooks';
+import { ChainImg } from '@polkadot/react-components';
+import { useApi, useCall } from '@polkadot/react-hooks';
 import { BestNumber, Chain } from '@polkadot/react-query';
 
-import Endpoints from '../Endpoints';
+// import Endpoints from '../Endpoints';
 
 interface Props {
   className?: string;
@@ -19,15 +19,16 @@ interface Props {
 function ChainInfo ({ className }: Props): React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const runtimeVersion = useCall<RuntimeVersion>(isApiReady && api.rpc.state.subscribeRuntimeVersion);
-  const { ipnsChain } = useIpfs();
-  const [isEndpointsVisible, toggleEndpoints] = useToggle();
-  const canToggle = !ipnsChain;
+  // const { ipnsChain } = useIpfs();
+  // const [isEndpointsVisible, toggleEndpoints] = useToggle();
+  // const canToggle = !ipnsChain;
+  const canToggle = false;
 
   return (
     <div className={className}>
       <div
         className={`apps--SideBar-logo-inner${canToggle ? ' isClickable' : ''} highlight--color-contrast`}
-        onClick={toggleEndpoints}
+        // onClick={toggleEndpoints}
       >
         <ChainImg />
         <div className='info media--1000'>
@@ -40,16 +41,16 @@ function ChainInfo ({ className }: Props): React.ReactElement<Props> {
             label='#'
           />
         </div>
-        {canToggle && (
+        {/* {canToggle && (
           <Icon
             className='dropdown'
             icon={isEndpointsVisible ? 'caret-right' : 'caret-down'}
           />
-        )}
+        )} */}
       </div>
-      {isEndpointsVisible && (
+      {/* {isEndpointsVisible && (
         <Endpoints onClose={toggleEndpoints} />
-      )}
+      )} */}
     </div>
   );
 }
